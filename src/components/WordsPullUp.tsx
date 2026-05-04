@@ -29,11 +29,12 @@ export default function WordsPullUp({
                 <span key={charIndex} className="inline-block overflow-hidden">
                   <motion.span
                     className="inline-block"
+                    style={{ willChange: "transform, opacity" }}
                     initial={{ y: 20, opacity: 0 }}
                     animate={isInView ? { y: 0, opacity: 1 } : {}}
                     transition={{
-                      duration: 0.5,
-                      delay: (wordIndex * word.length + charIndex) * 0.08,
+                      duration: 0.35,
+                      delay: (wordIndex * word.length + charIndex) * 0.05,
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   >

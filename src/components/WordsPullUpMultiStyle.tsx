@@ -29,25 +29,21 @@ export default function WordsPullUpMultiStyle({
   return (
     <div ref={ref} className={`inline-flex flex-wrap justify-center ${className}`}>
       {allWords.map((item, wordIndex) => (
-        <span key={wordIndex} className={`inline-flex flex-wrap ${item.className ?? ""}`}>
-          {item.word.split("").map((char, charIndex) => (
-            <span key={charIndex} className="inline-block overflow-hidden">
-              <motion.span
-                className="inline-block"
-                initial={{ y: 20, opacity: 0 }}
-                animate={isInView ? { y: 0, opacity: 1 } : {}}
-                transition={{
-                  duration: 0.5,
-                  delay: (wordIndex * 5 + charIndex) * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                {char}
-              </motion.span>
-            </span>
-          ))}
+        <motion.span
+          key={wordIndex}
+          className={`inline-flex flex-wrap ${item.className ?? ""}`}
+          style={{ willChange: "transform, opacity" }}
+          initial={{ y: 20, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{
+            duration: 0.4,
+            delay: wordIndex * 0.07,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        >
+          {item.word}
           {wordIndex < allWords.length - 1 && <span>&nbsp;</span>}
-        </span>
+        </motion.span>
       ))}
     </div>
   );
