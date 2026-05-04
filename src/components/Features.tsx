@@ -88,8 +88,11 @@ export default function Features() {
             <motion.div
               key={index}
               className={`relative rounded-2xl overflow-hidden ${
-                card.isVideo ? "" : "bg-[#212121] p-5 sm:p-6 flex flex-col"
+                card.isVideo
+                  ? ""
+                  : "bg-[#212121] p-5 sm:p-6 flex flex-col border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
               }`}
+              style={{ willChange: "transform" }}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={isInView ? { scale: 1, opacity: 1 } : {}}
               transition={{
@@ -120,7 +123,7 @@ export default function Features() {
                   <img
                     src={card.icon}
                     alt={card.title}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded object-cover mb-4"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded object-cover mb-4 outline outline-1 -outline-offset-1 outline-white/10"
                   />
                   <h3 className="text-[#E1E0CC] font-medium text-sm sm:text-base mb-3">
                     {card.title}
@@ -138,7 +141,7 @@ export default function Features() {
                   </ul>
                   <a
                     href="#"
-                    className="inline-flex items-center gap-2 text-primary text-xs sm:text-sm mt-4 hover:gap-3 transition-all duration-200"
+                    className="inline-flex items-center gap-2 text-primary text-xs sm:text-sm mt-4 hover:gap-3 active:scale-[0.96] transition-[gap,transform] duration-200"
                   >
                     Learn more
                     <ArrowRight

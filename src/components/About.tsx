@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import WordsPullUpMultiStyle from "./WordsPullUpMultiStyle";
-import AnimatedLetter from "./AnimatedLetter";
 
 const ABOUT_TEXT =
   "Over the last seven years, I have worked with Parallax, a Berlin-based production house that crafts cinema, series, and Noir Studio in Paris. Together, we have created work that has earned international acclaim at several major festivals.";
@@ -26,7 +25,7 @@ export default function About() {
 
   return (
     <section className="bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto bg-[#101010] rounded-2xl md:rounded-3xl p-8 sm:p-12 md:p-16 text-center">
+      <div className="max-w-6xl mx-auto bg-[#101010] rounded-2xl md:rounded-3xl p-8 sm:p-12 md:p-16 text-center border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
         <p className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-6 sm:mb-8">
           Visual arts
         </p>
@@ -36,7 +35,7 @@ export default function About() {
         </div>
 
         <div ref={scrollRef} className="max-w-2xl mx-auto">
-          <p className="text-[#DEDBC8] text-xs sm:text-sm md:text-base">
+          <p className="text-[#DEDBC8] text-xs sm:text-sm md:text-base text-pretty">
             {ABOUT_TEXT.split("").map((char, index) => {
               const charProgress = index / totalChars;
               const rangeStart = charProgress - 0.1;

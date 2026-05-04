@@ -8,8 +8,8 @@ const VIDEO_URL =
 
 export default function Hero() {
   return (
-    <section className="relative h-screen p-4 md:p-6">
-      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden">
+    <section className="relative min-h-[100dvh] p-4 md:p-6">
+      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden" style={{ minHeight: "calc(100dvh - 2rem)" }}>
         <video
           src={VIDEO_URL}
           autoPlay
@@ -37,7 +37,7 @@ export default function Hero() {
 
             <div className="col-span-12 lg:col-span-4 space-y-4 sm:space-y-6">
               <motion.p
-                className="text-primary/70 text-xs sm:text-base"
+                className="text-primary/70 text-xs sm:text-base text-pretty"
                 style={{ lineHeight: 1.2 }}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -53,9 +53,10 @@ export default function Hero() {
               </motion.p>
 
               <motion.button
-                className="group flex items-center gap-2 bg-primary rounded-full text-black font-medium text-sm sm:text-base hover:gap-3 transition-all duration-300"
+                className="group flex items-center gap-2 bg-primary rounded-full text-black font-medium text-sm sm:text-base hover:gap-3 transition-[gap,transform] duration-300"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
+                whileTap={{ scale: 0.96 }}
                 transition={{
                   duration: 0.6,
                   delay: 0.7,
