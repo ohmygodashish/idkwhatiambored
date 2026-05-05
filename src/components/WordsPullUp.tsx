@@ -22,13 +22,13 @@ export default function WordsPullUp({
       {words.map((word, wordIndex) => {
         const isLast = wordIndex === words.length - 1;
         return (
-          <span key={wordIndex} className="inline-flex flex-wrap">
+          <span key={wordIndex} className="inline-flex flex-wrap items-baseline">
             {word.split("").map((char, charIndex) => {
               const isLastCharOfLastWord = isLast && charIndex === word.length - 1;
               return (
-                <span key={charIndex} className="inline-block overflow-hidden">
+                <span key={charIndex} className="relative">
                   <motion.span
-                    className="inline-block"
+                    className="inline-block leading-none"
                     style={{ willChange: "transform, opacity" }}
                     initial={{ y: 20, opacity: 0 }}
                     animate={isInView ? { y: 0, opacity: 1 } : {}}
