@@ -8,8 +8,8 @@ const VIDEO_URL =
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100dvh] p-4 md:p-6">
-      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden" style={{ minHeight: "calc(100dvh - 2rem)" }}>
+    <section className="relative min-h-[100dvh] p-3 md:p-5 flex flex-col">
+      <div className="relative w-full flex-1 rounded-2xl md:rounded-[2rem] overflow-hidden">
         <video
           src={VIDEO_URL}
           autoPlay
@@ -25,11 +25,11 @@ export default function Hero() {
 
         <Navbar />
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12">
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
           <div className="grid grid-cols-12 gap-4 items-end">
             <div className="col-span-12 lg:col-span-8">
               <WordsPullUp
-                text="Prisma"
+                text="Ashish"
                 showAsterisk
                 className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em] relative"
               />
