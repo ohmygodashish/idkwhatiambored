@@ -17,54 +17,74 @@ const headerSegments = [
   },
 ];
 
+type CardVariant = "text" | "media";
+
 interface ProjectCard {
   number: string;
+  label: string;
   title: string;
-  icon: string;
-  items: string[];
-  isVideo?: boolean;
-  videoUrl?: string;
+  items?: string[];
+  description?: string;
+  variant: CardVariant;
+  mediaUrl?: string;
+  mediaType?: "video" | "image";
+  colSpan: string;
 }
 
 const projects: ProjectCard[] = [
   {
     number: "01",
+    label: "FEATURED",
     title: "Featured project.",
-    icon: "",
-    items: [],
-    isVideo: true,
-    videoUrl: FEATURE_VIDEO_URL,
+    variant: "media",
+    mediaUrl: FEATURE_VIDEO_URL,
+    mediaType: "video",
+    colSpan: "md:col-span-2 lg:col-span-2",
   },
   {
     number: "02",
+    label: "INFRASTRUCTURE",
     title: "Cloud Infrastructure.",
-    icon: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171918_4a5edc79-d78f-4637-ac8b-53c43c220606.png&w=1280&q=85",
+    variant: "text",
     items: [
       "Automated deployment pipelines with zero-downtime releases",
       "Real-time monitoring dashboards and alerting systems",
       "Auto-scaling infrastructure across multiple regions",
       "Cost optimization reducing cloud spend by 40%",
     ],
+    colSpan: "md:col-span-2 lg:col-span-2",
   },
   {
     number: "03",
+    label: "DATA",
     title: "Data Pipeline.",
-    icon: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171741_ed9845ab-f5b2-4018-8ce7-07cc01823522.png&w=1280&q=85",
-    items: [
-      "ETL workflows processing millions of events daily",
-      "Real-time analytics with sub-second query latency",
-      "Third-party API integrations with resilient retry logic",
-    ],
+    variant: "media",
+    mediaUrl:
+      "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171741_ed9845ab-f5b2-4018-8ce7-07cc01823522.png&w=1280&q=85",
+    mediaType: "image",
+    colSpan: "",
   },
   {
     number: "04",
+    label: "DEVELOPER TOOLS",
     title: "Developer Toolkit.",
-    icon: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171809_f56666dc-c099-4778-ad82-9ad4f209567b.png&w=1280&q=85",
+    variant: "text",
     items: [
       "CLI tools automating repetitive development workflows",
       "Editor extensions for inline linting and formatting",
       "Shared component libraries with typed design tokens",
     ],
+    colSpan: "md:col-span-2 lg:col-span-1",
+  },
+  {
+    number: "05",
+    label: "PLATFORM",
+    title: "Full-Stack Platform.",
+    variant: "media",
+    mediaUrl:
+      "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171809_f56666dc-c099-4778-ad82-9ad4f209567b.png&w=1280&q=85",
+    mediaType: "image",
+    colSpan: "md:col-span-2",
   },
 ];
 
@@ -73,26 +93,31 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="relative min-h-screen bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-6">
+    <section
+      id="projects"
+      className="relative bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-5"
+    >
       <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16 md:mb-20">
-          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-tight">
+        <div className="mb-16 sm:mb-20">
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[0.95] sm:leading-[0.9]">
             <WordsPullUpMultiStyle segments={headerSegments} />
           </div>
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-2 md:gap-1 lg:h-[480px]">
+        <div
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
           {projects.map((card, index) => (
             <motion.div
               key={index}
-              className={`relative rounded-2xl overflow-hidden ${
-                card.isVideo
-                  ? ""
-                  : "bg-[#212121] p-5 sm:p-6 flex flex-col border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+              className={`${card.colSpan} ${
+                card.variant === "text"
+                  ? "bg-[#212121] rounded-[2rem] p-6 sm:p-8 border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden group hover:bg-[#2a2a2a] transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
+                  : "rounded-[2rem] overflow-hidden border border-white/[0.04] relative group min-h-[400px]"
               }`}
-              style={{ willChange: "transform" }}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={isInView ? { scale: 1, opacity: 1 } : {}}
               transition={{
@@ -101,55 +126,76 @@ export default function Projects() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              {card.isVideo ? (
+              {card.variant === "text" ? (
                 <>
-                  <video
-                    src={card.videoUrl}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                    <p className="text-[#E1E0CC] font-medium text-sm sm:text-base">
+                  <div>
+                    <span className="text-[10px] sm:text-xs tracking-[0.15em] font-bold text-white/40 block mb-4">
+                      {card.number} // {card.label}
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary tracking-tight mb-6">
                       {card.title}
-                    </p>
+                    </h2>
+                    {card.items && (
+                      <ul className="space-y-3 mb-8">
+                        {card.items.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-[#E1E0CC]/70">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-2 text-[10px] sm:text-xs tracking-[0.15em] font-bold text-primary group-hover:gap-4 transition-[gap] duration-500"
+                    style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                  >
+                    VIEW PROJECT
+                    <span className="border border-white/[0.06] rounded-full p-2">
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
                 </>
               ) : (
                 <>
-                  <img
-                    src={card.icon}
-                    alt={card.title}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded object-cover mb-4 outline outline-1 -outline-offset-1 outline-white/10"
-                  />
-                  <h3 className="text-[#E1E0CC] font-medium text-sm sm:text-base mb-3">
-                    <span className="text-primary/50 mr-2 text-xs">{card.number}</span>
-                    {card.title}
-                  </h3>
-                  <ul className="space-y-2 flex-1">
-                    {card.items.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-gray-400 text-xs sm:text-sm"
-                      >
-                        <Check className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-2 text-primary text-xs sm:text-sm mt-4 hover:gap-3 active:scale-[0.96] transition-[gap,transform] duration-200"
-                  >
-                    Learn more
-                    <ArrowRight
-                      className="w-3.5 h-3.5"
-                      style={{ transform: "rotate(-45deg)" }}
+                  {card.mediaType === "video" ? (
+                    <video
+                      src={card.mediaUrl}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                  </a>
+                  ) : (
+                    <img
+                      src={card.mediaUrl}
+                      alt={card.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-[#101010]/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 w-full flex justify-between items-end">
+                    <div>
+                      <span className="text-[10px] sm:text-xs tracking-[0.15em] font-bold text-white/40 block mb-2">
+                        {card.number} // {card.label}
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#E1E0CC] tracking-tight">
+                        {card.title}
+                      </h2>
+                    </div>
+                    <a
+                      href="#"
+                      className="bg-primary text-[#323124] rounded-full p-3 flex items-center justify-center hover:scale-110 active:scale-[0.96] transition-transform duration-500"
+                      style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
                 </>
               )}
             </motion.div>
