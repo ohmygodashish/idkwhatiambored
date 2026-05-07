@@ -6,7 +6,7 @@ const ABOUT_TEXT =
   "Over the past years, I have designed and built web applications, APIs, and developer tools for startups and open-source communities. From real-time data pipelines to polished user interfaces, I focus on shipping software that is fast, reliable, and a joy to use.";
 
 const segments = [
-  { text: "I'm Ashish Prajapati,", className: "font-normal" },
+  { text: "Hi, I'm Ashish Prajapati,", className: "font-normal" },
   { text: "a developer who builds with precision.", className: "italic font-serif" },
   {
     text: "I craft software that's fast, reliable, and a joy to use.",

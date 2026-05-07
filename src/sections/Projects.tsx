@@ -97,8 +97,6 @@ export default function Projects() {
       id="projects"
       className="relative bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-5"
     >
-      <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
-
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="mb-16 sm:mb-20">
           <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[0.95] sm:leading-[0.9]">
@@ -115,8 +113,8 @@ export default function Projects() {
               key={index}
               className={`${card.colSpan} ${
                 card.variant === "text"
-                  ? "bg-[#212121] rounded-[2rem] p-6 sm:p-8 border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden group hover:bg-[#2a2a2a] transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
-                  : "rounded-[2rem] overflow-hidden border border-white/[0.04] relative group min-h-[400px]"
+                  ? "bg-[#1a1a1a] rounded-[2rem] p-6 sm:p-8 shadow-[0_1px_0_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.4)] relative overflow-hidden group hover:bg-[#222222] transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
+                  : "rounded-[2rem] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.3)] relative group min-h-[400px]"
               }`}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={isInView ? { scale: 1, opacity: 1 } : {}}
@@ -150,11 +148,11 @@ export default function Projects() {
                   </div>
                   <a
                     href="#"
-                    className="inline-flex items-center gap-2 text-[10px] sm:text-xs tracking-[0.15em] font-bold text-primary group-hover:gap-4 transition-[gap] duration-500"
+                    className="inline-flex items-center gap-2 text-[10px] sm:text-xs tracking-[0.15em] font-bold text-primary group-hover:gap-4 active:scale-[0.96] transition-[gap,transform] duration-500"
                     style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
                   >
                     VIEW PROJECT
-                    <span className="border border-white/[0.06] rounded-full p-2">
+                    <span className="border border-white/[0.08] rounded-full p-2">
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </a>
@@ -168,13 +166,13 @@ export default function Projects() {
                       loop
                       muted
                       playsInline
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 outline outline-1 outline-white/10 -outline-offset-1"
                     />
                   ) : (
                     <img
                       src={card.mediaUrl}
                       alt={card.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 outline outline-1 outline-white/10 -outline-offset-1"
                       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
                     />
                   )}
@@ -190,7 +188,7 @@ export default function Projects() {
                     </div>
                     <a
                       href="#"
-                      className="bg-primary text-[#323124] rounded-full p-3 flex items-center justify-center hover:scale-110 active:scale-[0.96] transition-transform duration-500"
+                      className="bg-primary text-[#323124] rounded-full p-3 flex items-center justify-center hover:scale-110 active:scale-[0.96] transition-transform duration-500 min-w-[48px] min-h-[48px]"
                       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
                     >
                       <ArrowRight className="w-4 h-4" />

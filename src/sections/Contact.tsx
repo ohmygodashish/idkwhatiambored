@@ -43,34 +43,19 @@ export default function Contact() {
             <div className="flex items-center gap-6">
               <a
                 href="#"
-                className="text-primary/70 text-xs sm:text-sm hover:text-primary transition-colors duration-200"
-                style={{ color: "rgba(225, 224, 204, 0.7)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#E1E0CC")}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(225, 224, 204, 0.7)")
-                }
+                className="text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
               >
                 GitHub
               </a>
               <a
                 href="#"
-                className="text-primary/70 text-xs sm:text-sm"
-                style={{ color: "rgba(225, 224, 204, 0.7)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#E1E0CC")}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(225, 224, 204, 0.7)")
-                }
+                className="text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
               >
                 LinkedIn
               </a>
               <a
                 href="#"
-                className="text-primary/70 text-xs sm:text-sm"
-                style={{ color: "rgba(225, 224, 204, 0.7)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#E1E0CC")}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(225, 224, 204, 0.7)")
-                }
+                className="text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
               >
                 Twitter
               </a>
@@ -78,16 +63,7 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        <motion.div
-          className="mt-20 sm:mt-28 pt-8 border-t border-white/[0.06]"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <p className="text-primary/40 text-xs">
-            Designed and built by Ashish Prajapati
-          </p>
-        </motion.div>
+        
       </div>
     </section>
   );
