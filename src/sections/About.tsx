@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import WordsPullUpMultiStyle from "./WordsPullUpMultiStyle";
+import WordsPullUpMultiStyle from "../animations/WordsPullUpMultiStyle";
 
 const ABOUT_TEXT =
   "Over the past years, I have designed and built web applications, APIs, and developer tools for startups and open-source communities. From real-time data pipelines to polished user interfaces, I focus on shipping software that is fast, reliable, and a joy to use.";

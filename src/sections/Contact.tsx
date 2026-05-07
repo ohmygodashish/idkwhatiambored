@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import WordsPullUpMultiStyle from "./WordsPullUpMultiStyle";
+import WordsPullUpMultiStyle from "../animations/WordsPullUpMultiStyle";
 
 const segments = [
   { text: "Let's build", className: "font-normal" },

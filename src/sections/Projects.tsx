@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
-import WordsPullUpMultiStyle from "./WordsPullUpMultiStyle";
+import WordsPullUpMultiStyle from "../animations/WordsPullUpMultiStyle";
 
 const FEATURE_VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_133058_0504132a-0cf3-4450-a370-8ea3b05c95d4.mp4";

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import Navbar from "./Navbar";
-import WordsPullUp from "./WordsPullUp";
+import Navbar from "../components/Navbar";
+import WordsPullUp from "../animations/WordsPullUp";
 
 const VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4";
@@ -30,7 +30,7 @@ export default function Hero() {
             <div className="col-span-12 lg:col-span-8">
               <WordsPullUp
                 text="Ashish"
-                showAsterisk
+                // showAsterisk
                 className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em] relative"
               />
             </div>
