@@ -16,9 +16,16 @@ const segments = [
 
 export default function About() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const segmentsScrollRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: scrollRef,
-    offset: ["start 0.8", "end 0.2"],
+    offset: ["start 0.85", "start 0.35"],
+  });
+
+  const { scrollYProgress: segmentsScrollYProgress } = useScroll({
+    target: segmentsScrollRef,
+    offset: ["start 0.85", "start 0.35"],
   });
 
   const totalChars = ABOUT_TEXT.length;
@@ -30,8 +37,8 @@ export default function About() {
           Software Developer
         </p>
 
-        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl max-w-3xl mx-auto leading-[0.95] sm:leading-[0.9] mb-8 sm:mb-12">
-          <WordsPullUpMultiStyle segments={segments} />
+        <div ref={segmentsScrollRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl max-w-3xl mx-auto leading-[0.95] sm:leading-[0.9] mb-8 sm:mb-12">
+          <WordsPullUpMultiStyle segments={segments} progress={segmentsScrollYProgress} />
         </div>
 
         <div ref={scrollRef} className="max-w-2xl mx-auto">
