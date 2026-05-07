@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import Navbar from "../components/Navbar";
 import WordsPullUp from "../animations/WordsPullUp";
 
 const VIDEO_URL =
@@ -22,8 +21,6 @@ export default function Hero() {
         <div className="noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
-
-        <Navbar />
 
         <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
           <div className="grid grid-cols-12 gap-4 items-end">
