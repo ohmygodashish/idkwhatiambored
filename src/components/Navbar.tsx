@@ -1,10 +1,10 @@
 export default function Navbar() {
   const links = [
-    "Our story",
-    "Collective",
-    "Workshops",
-    "Programs",
-    "Inquiries",
+    "About",
+    "Projects",
+    "Skills",
+    "Experience",
+    "Contact",
   ];
 
   return (
@@ -14,7 +14,7 @@ export default function Navbar() {
           {links.map((link) => (
             <a
               key={link}
-              href="#"
+              href={`#${link.toLowerCase()}`}
               className="text-[10px] sm:text-xs md:text-sm whitespace-nowrap px-1.5 py-2 transition-colors duration-200 active:scale-[0.96] transition-transform"
               style={{
                 color: "rgba(225, 224, 204, 0.8)",

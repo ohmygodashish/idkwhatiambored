@@ -8,7 +8,7 @@ const VIDEO_URL =
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100dvh] p-3 md:p-5 flex flex-col">
+    <section id="about" className="relative min-h-[100dvh] p-3 md:p-5 flex flex-col">
       <div className="relative w-full flex-1 rounded-2xl md:rounded-[2rem] overflow-hidden">
         <video
           src={VIDEO_URL}
@@ -47,9 +47,9 @@ export default function Hero() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                Prisma is a worldwide network of visual artists, filmmakers and
-                storytellers bound not by place, status or labels but by passion
-                and hunger to unlock potential through our unique perspectives.
+                I build elegant, performant software — clean architecture,
+                thoughtful UX, and code that scales. Passionate about turning
+                complex problems into simple, beautiful solutions.
               </motion.p>
 
               <motion.button
@@ -63,7 +63,7 @@ export default function Hero() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                <span className="pl-5 py-2.5 sm:py-3">Join the lab</span>
+                <span className="pl-5 py-2.5 sm:py-3">View my work</span>
                 <span className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center mr-1 group-hover:scale-110 transition-transform duration-300">
                   <ArrowRight className="w-4 h-4 text-primary" />
                 </span>
