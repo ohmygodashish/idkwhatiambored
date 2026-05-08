@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
 const links = ["About", "Projects", "Skills", "Experience", "Contact"];
 
-function PillContent({ showLinks }: { showLinks: boolean }) {
+function PillContent({ showLinks, onNavigate }: { showLinks: boolean; onNavigate: (id: string) => void }) {
   if (!showLinks) {
     return <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />;
   }
@@ -11,9 +11,9 @@ function PillContent({ showLinks }: { showLinks: boolean }) {
   return (
     <div className="flex items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8">
       {links.map((link, i) => (
-        <motion.a
+        <motion.button
           key={link}
-          href={`#${link.toLowerCase()}`}
+          onClick={() => onNavigate(link.toLowerCase())}
           className="text-[10px] sm:text-xs md:text-sm whitespace-nowrap px-1.5 py-2 text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] active:scale-[0.96] transition-colors duration-200"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ function PillContent({ showLinks }: { showLinks: boolean }) {
           }}
         >
           {link}
-        </motion.a>
+        </motion.button>
       ))}
     </div>
   );
@@ -36,7 +36,7 @@ function HamburgerIcon() {
       {[0.05, 0.1, 0.15].map((delay, i) => (
         <motion.div
           key={i}
-          className="w-4 h-[2px] bg-primary rounded-full"
+          className="w-4 h-[2px] bg-primary rounded-full origin-center"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.2, delay }}
@@ -46,30 +46,97 @@ function HamburgerIcon() {
   );
 }
 
+function DropdownLinks({
+  onNavigate,
+}: {
+  onNavigate: (id: string) => void;
+}) {
+  return (
+    <div className="flex flex-col">
+      {links.map((link, i) => (
+        <motion.button
+          key={link}
+          onClick={() => onNavigate(link.toLowerCase())}
+          className="text-left text-sm md:text-base py-2.5 text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] active:scale-[0.96] transition-colors duration-200"
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            duration: 0.25,
+            delay: i * 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        >
+          {link}
+        </motion.button>
+      ))}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
   const [isHamburger, setIsHamburger] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [measuredWidth, setMeasuredWidth] = useState(44);
+  const [measuredDropdownW, setMeasuredDropdownW] = useState(160);
+  const [measuredDropdownH, setMeasuredDropdownH] = useState(200);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { scrollY } = useScroll();
   const lastScrollY = useRef(0);
+  const dropdownMeasureRef = useRef<HTMLDivElement>(null);
 
-  // Intro: expand from circle to pill
+  const isDesktop = windowWidth >= 768;
+  const cornerInset = isDesktop ? 44 : 32;
+
+  const handleNavigate = useCallback(
+    (id: string) => {
+      setIsMenuOpen(false);
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    },
+    []
+  );
+
   useEffect(() => {
     const timer = setTimeout(() => setExpanded(true), 800);
     return () => clearTimeout(timer);
   }, []);
 
-  // Track window resize
   useEffect(() => {
     const onResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Scroll direction → morph
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    if (dropdownMeasureRef.current) {
+      setMeasuredDropdownW(dropdownMeasureRef.current.offsetWidth);
+      setMeasuredDropdownH(dropdownMeasureRef.current.offsetHeight);
+    }
+  }, [windowWidth]);
+
+  const maxDropdownW = windowWidth - 2 * cornerInset;
+  const rawDropdownW = isDesktop ? measuredDropdownW * 1.5 : measuredDropdownW;
+  const dropdownWidth = Math.max(120, Math.min(rawDropdownW, maxDropdownW));
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (!expanded) return;
+
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
 
     const direction = latest > lastScrollY.current ? "down" : "up";
     lastScrollY.current = latest;
@@ -81,36 +148,83 @@ export default function Navbar() {
     }
   });
 
-  // Position calculations
-  const isDesktop = windowWidth >= 768;
-  
-  // Pill: centered horizontally, offset from top matching old absolute position
   const pillY = isDesktop ? 52 : 28;
   const pillX = (windowWidth - measuredWidth) / 2;
-  
-  // Hamburger: inside the rounded corners of the video element
-  // Hero has p-3=12px mobile, md:p-5=20px. Add buffer to sit inside the curve.
-  const cornerInset = isDesktop ? 44 : 32;
   const hamburgerX = windowWidth - 44 - cornerInset;
-  const hamburgerY = cornerInset;
+  const dropdownX = windowWidth - dropdownWidth - cornerInset;
+  const navCornerY = cornerInset;
 
-  // Slower, less bouncy spring configs
-  const springX = { type: "spring" as const, stiffness: 180, damping: 28 };
-  const springY = { type: "spring" as const, stiffness: 60, damping: 20 }; // deeper arc
-  const springScale = { type: "spring" as const, stiffness: 200, damping: 25 };
-  const springWidth = { type: "spring" as const, stiffness: 250, damping: 30 };
+  const springConfig = { type: "spring" as const };
+  const springX = { ...springConfig, stiffness: 180, damping: 28 };
+  const springY = { ...springConfig, stiffness: 60, damping: 20 };
+  const springScale = { ...springConfig, stiffness: 200, damping: 25 };
+  const springWidth = { ...springConfig, stiffness: 250, damping: 30 };
+
+  const showDropdown = isHamburger && isMenuOpen;
+  const showHamburgerIcon = isHamburger && !isMenuOpen;
+
+  const navX = isHamburger
+    ? isMenuOpen
+      ? dropdownX
+      : hamburgerX
+    : pillX;
+  const navY = isHamburger ? navCornerY : pillY;
+
+  const currentWidth = showDropdown
+    ? dropdownWidth
+    : isHamburger
+      ? 44
+      : expanded
+        ? measuredWidth
+        : 44;
+
+  const currentHeight = showDropdown ? measuredDropdownH : 44;
+  const currentBorderRadius = showDropdown ? 24 : 22;
 
   return (
     <>
-      {/* Hidden measurement container */}
+      {/* Hidden measurement: pill width */}
       <div
         ref={(el) => {
           if (el) setMeasuredWidth(el.offsetWidth);
         }}
         className="fixed top-0 left-0 opacity-0 pointer-events-none z-0 bg-black/85 backdrop-blur-xl rounded-full px-3 py-1.5 md:px-5 md:py-2 border border-white/[0.06]"
       >
-        <PillContent showLinks />
+        <PillContent showLinks onNavigate={handleNavigate} />
       </div>
+
+      {/* Hidden measurement: dropdown dimensions */}
+      <div
+        ref={dropdownMeasureRef}
+        className="fixed top-0 left-0 opacity-0 pointer-events-none z-0 inline-block"
+      >
+        <div className="px-5 py-5">
+          <div className="flex flex-col">
+            {links.map((link) => (
+              <div
+                key={link}
+                className="text-sm md:text-base py-2.5 text-[rgba(225,224,204,0.7)] whitespace-nowrap"
+              >
+                {link}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Backdrop */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       <motion.nav
         className="fixed z-50 pointer-events-auto"
@@ -122,8 +236,8 @@ export default function Navbar() {
           scale: 0.8,
         }}
         animate={{
-          x: isHamburger ? hamburgerX : pillX,
-          y: isHamburger ? hamburgerY : pillY,
+          x: navX,
+          y: navY,
           opacity: 1,
           scale: 1,
         }}
@@ -135,26 +249,15 @@ export default function Navbar() {
         }}
       >
         <motion.div
-          className="bg-black/85 backdrop-blur-xl rounded-full border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_2px_16px_rgba(0,0,0,0.4)] flex items-center justify-center h-11 overflow-hidden"
+          className="bg-black/85 backdrop-blur-xl border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_2px_16px_rgba(0,0,0,0.4)] overflow-hidden"
           animate={{
-            width: isHamburger ? 44 : expanded ? measuredWidth : 44,
+            width: currentWidth,
+            height: currentHeight,
+            borderRadius: currentBorderRadius,
           }}
           transition={springWidth}
         >
-          {/* Crossfade: hamburger ↔ pill links */}
           <div className="relative w-full h-full">
-            {/* Hamburger layer */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              animate={{
-                opacity: isHamburger ? 1 : 0,
-                scale: isHamburger ? 1 : 0.8,
-              }}
-              transition={{ duration: 0.25 }}
-            >
-              <HamburgerIcon />
-            </motion.div>
-
             {/* Pill links layer */}
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
@@ -162,9 +265,38 @@ export default function Navbar() {
                 opacity: isHamburger ? 0 : 1,
                 scale: isHamburger ? 0.8 : 1,
               }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
+              style={{ pointerEvents: isHamburger ? "none" : "auto" }}
             >
-              <PillContent showLinks={expanded} />
+              <PillContent showLinks={expanded} onNavigate={handleNavigate} />
+            </motion.div>
+
+            {/* Hamburger icon layer (closed state) */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center cursor-pointer"
+              animate={{
+                opacity: showHamburgerIcon ? 1 : 0,
+                scale: showHamburgerIcon ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.2 }}
+              style={{ pointerEvents: showHamburgerIcon ? "auto" : "none" }}
+              onClick={() => setIsMenuOpen(true)}
+            >
+              <HamburgerIcon />
+            </motion.div>
+
+            {/* Dropdown content layer */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                opacity: showDropdown ? 1 : 0,
+              }}
+              transition={{ duration: 0.2 }}
+              style={{ pointerEvents: showDropdown ? "auto" : "none" }}
+            >
+              <div className="px-5 py-5">
+                <DropdownLinks onNavigate={handleNavigate} />
+              </div>
             </motion.div>
           </div>
         </motion.div>
