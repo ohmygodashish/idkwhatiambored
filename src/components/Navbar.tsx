@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
-const links = ["About", "Projects", "Skills", "Experience", "Contact"];
+const pillLinks = ["Projects", "Skills", "Experience", "Contact"];
+const dropdownLinks = ["About", ...pillLinks];
 
 function PillContent({ showLinks, onNavigate }: { showLinks: boolean; onNavigate: (id: string) => void }) {
   if (!showLinks) {
@@ -10,7 +11,7 @@ function PillContent({ showLinks, onNavigate }: { showLinks: boolean; onNavigate
 
   return (
     <div className="flex items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-      {links.map((link, i) => (
+      {pillLinks.map((link, i) => (
         <motion.button
           key={link}
           onClick={() => onNavigate(link.toLowerCase())}
@@ -53,7 +54,7 @@ function DropdownLinks({
 }) {
   return (
     <div className="flex flex-col">
-      {links.map((link, i) => (
+      {dropdownLinks.map((link, i) => (
         <motion.button
           key={link}
           onClick={() => onNavigate(link.toLowerCase())}
@@ -200,7 +201,7 @@ export default function Navbar() {
       >
         <div className="px-5 py-5">
           <div className="flex flex-col">
-            {links.map((link) => (
+            {dropdownLinks.map((link) => (
               <div
                 key={link}
                 className="text-sm md:text-base py-2.5 text-[rgba(225,224,204,0.7)] whitespace-nowrap"
