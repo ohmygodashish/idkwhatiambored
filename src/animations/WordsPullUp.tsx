@@ -28,7 +28,7 @@ export default function WordsPullUp({
               return (
                 <span key={charIndex} className="relative">
                   <motion.span
-                    className="inline-block leading-none"
+                    className="inline-block"
                     style={{ willChange: "transform, opacity" }}
                     initial={{ y: 20, opacity: 0 }}
                     animate={isInView ? { y: 0, opacity: 1 } : {}}
