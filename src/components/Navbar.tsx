@@ -15,7 +15,7 @@ function PillContent({ showLinks, onNavigate }: { showLinks: boolean; onNavigate
         <motion.button
           key={link}
           onClick={() => onNavigate(link.toLowerCase())}
-          className="text-[10px] sm:text-xs md:text-sm whitespace-nowrap px-1.5 py-2 text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] active:scale-[0.96] transition-colors duration-200"
+          className="text-[10px] sm:text-xs md:text-sm whitespace-nowrap px-1.5 py-2 text-primary/70 hover:text-primary active:scale-[0.96] transition-colors duration-200"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -58,7 +58,7 @@ function DropdownLinks({
         <motion.button
           key={link}
           onClick={() => onNavigate(link.toLowerCase())}
-          className="text-left text-sm md:text-base py-2.5 text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] active:scale-[0.96] transition-colors duration-200"
+          className="text-left text-sm md:text-base py-2.5 text-primary/70 hover:text-primary active:scale-[0.96] transition-colors duration-200"
           initial={{ opacity: 0, x: -8 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{
@@ -180,7 +180,7 @@ export default function Navbar() {
         : 44;
 
   const currentHeight = showDropdown ? measuredDropdownH : 44;
-  const currentBorderRadius = showDropdown ? 24 : 22;
+  const currentBorderRadius = showDropdown ? 24 : 24;
 
   return (
     <>
@@ -204,7 +204,7 @@ export default function Navbar() {
             {dropdownLinks.map((link) => (
               <div
                 key={link}
-                className="text-sm md:text-base py-2.5 text-[rgba(225,224,204,0.7)] whitespace-nowrap"
+                className="text-sm md:text-base py-2.5 text-primary/70 whitespace-nowrap"
               >
                 {link}
               </div>
@@ -250,7 +250,7 @@ export default function Navbar() {
         }}
       >
         <motion.div
-          className="bg-black/85 backdrop-blur-xl border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_2px_16px_rgba(0,0,0,0.4)] overflow-hidden"
+          className="bg-black/85 backdrop-blur-xl border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_4px_24px_rgba(0,0,0,0.35)] overflow-hidden"
           animate={{
             width: currentWidth,
             height: currentHeight,

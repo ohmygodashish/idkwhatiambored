@@ -40,7 +40,7 @@ export default function About() {
 
   return (
     <section className="bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto bg-[#101010] rounded-2xl md:rounded-3xl p-8 sm:p-12 md:p-16 text-center border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <div className="max-w-6xl mx-auto bg-[#111111] rounded-[2rem] p-8 sm:p-12 md:p-16 text-center border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_4px_24px_rgba(0,0,0,0.35)]">
         <p className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-6 sm:mb-8">
           Software Developer
         </p>
@@ -50,7 +50,7 @@ export default function About() {
         </div>
 
         <div ref={scrollRef} className="max-w-2xl mx-auto">
-          <p className="text-[#DEDBC8] text-xs sm:text-sm md:text-base text-pretty">
+          <p className="text-primary text-xs sm:text-sm md:text-base text-pretty">
             {ABOUT_TEXT.split("").map((char, index) => {
               const charProgress = index / totalChars;
               const rangeStart = charProgress - 0.1;

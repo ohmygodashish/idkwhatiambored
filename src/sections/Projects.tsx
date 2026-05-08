@@ -9,7 +9,7 @@ const FEATURE_VIDEO_URL =
 const headerSegments = [
   {
     text: "Selected projects and shipped work.",
-    className: "text-[#E1E0CC]",
+    className: "text-primary",
   },
   {
     text: "Built with care. Shipped with confidence.",
@@ -95,7 +95,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-5"
+      className="relative bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-6"
     >
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="mb-16 sm:mb-20">
@@ -113,8 +113,8 @@ export default function Projects() {
               key={index}
               className={`${card.colSpan} ${
                 card.variant === "text"
-                  ? "bg-[#1a1a1a] rounded-[2rem] p-6 sm:p-8 shadow-[0_1px_0_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.4)] relative overflow-hidden group hover:bg-[#222222] transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
-                  : "rounded-[2rem] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.3)] relative group min-h-[400px]"
+                  ? "bg-[#111111] rounded-[2rem] p-6 sm:p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_4px_24px_rgba(0,0,0,0.35)] relative overflow-hidden group hover:bg-[#222222] transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
+                  : "rounded-[2rem] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative group min-h-[400px]"
               }`}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={isInView ? { scale: 1, opacity: 1 } : {}}
@@ -138,7 +138,7 @@ export default function Projects() {
                         {card.items.map((item, i) => (
                           <li key={i} className="flex items-start gap-3">
                             <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-[#E1E0CC]/70">
+                            <span className="text-sm text-primary/70">
                               {item}
                             </span>
                           </li>
@@ -176,13 +176,13 @@ export default function Projects() {
                       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-[#101010]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/40 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 w-full flex justify-between items-end">
                     <div>
                       <span className="text-[10px] sm:text-xs tracking-[0.15em] font-bold text-white/40 block mb-2">
                         {card.number} // {card.label}
                       </span>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-[#E1E0CC] tracking-tight">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-primary tracking-tight">
                         {card.title}
                       </h2>
                     </div>

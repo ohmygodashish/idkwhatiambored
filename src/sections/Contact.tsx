@@ -13,7 +13,7 @@ export default function Contact() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="relative bg-black py-24 sm:py-32 md:py-40 px-4 sm:px-6">
+    <section id="contact" className="relative bg-black py-20 sm:py-28 md:py-36 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto text-center" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,19 +43,19 @@ export default function Contact() {
             <div className="flex items-center gap-6">
               <a
                 href="#"
-                className="text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
+                className="text-primary/70 hover:text-primary text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
               >
                 GitHub
               </a>
               <a
                 href="#"
-                className="text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
+                className="text-primary/70 hover:text-primary text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
               >
                 LinkedIn
               </a>
               <a
                 href="#"
-                className="text-[rgba(225,224,204,0.7)] hover:text-[#E1E0CC] text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
+                className="text-primary/70 hover:text-primary text-xs sm:text-sm py-2 px-1 min-h-[40px] inline-flex items-center active:scale-[0.96] transition-colors duration-200"
               >
                 Twitter
               </a>
