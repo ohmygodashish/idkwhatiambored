@@ -24,7 +24,7 @@ export default function Hero() {
 
         <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
           <div className="relative">
-            <div className="overflow-hidden text-[26vw] sm:text-[24vw] md:text-[22vw] lg:h-[0.79em] lg:text-[20vw] xl:h-[0.79em] xl:text-[19vw] 2xl:h-[0.79em] 2xl:text-[20vw]">
+<div className="overflow-hidden text-[26vw] sm:text-[24vw] md:text-[22vw] lg:h-[0.79em] lg:text-[20vw] xl:h-[0.79em] xl:text-[19vw] 2xl:h-[0.79em] 2xl:text-[20vw]">
               <WordsPullUp
                 text="Ashish"
                 // showAsterisk
