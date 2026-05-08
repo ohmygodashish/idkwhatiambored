@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent, MotionValue } from "framer-motion";
 import WordsPullUpMultiStyle from "../animations/WordsPullUpMultiStyle";
 
 const ABOUT_TEXT =
@@ -14,19 +14,27 @@ const segments = [
   },
 ];
 
+function useOnceScroll(targetRef: React.RefObject<HTMLElement | null>) {
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start 0.85", "start 0.35"],
+  });
+
+  const maxProgress = useMotionValue(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (v: number) => {
+    if (v > maxProgress.get()) maxProgress.set(v);
+  });
+
+  return maxProgress;
+}
+
 export default function About() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const segmentsScrollRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: scrollRef,
-    offset: ["start 0.85", "start 0.35"],
-  });
-
-  const { scrollYProgress: segmentsScrollYProgress } = useScroll({
-    target: segmentsScrollRef,
-    offset: ["start 0.85", "start 0.35"],
-  });
+  const progress = useOnceScroll(scrollRef);
+  const segmentsProgress = useOnceScroll(segmentsScrollRef);
 
   const totalChars = ABOUT_TEXT.length;
 
@@ -38,7 +46,7 @@ export default function About() {
         </p>
 
         <div ref={segmentsScrollRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl max-w-3xl mx-auto leading-[0.95] sm:leading-[0.9] mb-8 sm:mb-12">
-          <WordsPullUpMultiStyle segments={segments} progress={segmentsScrollYProgress} />
+          <WordsPullUpMultiStyle segments={segments} progress={segmentsProgress} />
         </div>
 
         <div ref={scrollRef} className="max-w-2xl mx-auto">
@@ -52,7 +60,7 @@ export default function About() {
                 <ScrollChar
                   key={index}
                   char={char}
-                  progress={scrollYProgress}
+                  progress={progress}
                   rangeStart={rangeStart}
                   rangeEnd={rangeEnd}
                 />
@@ -72,7 +80,7 @@ function ScrollChar({
   rangeEnd,
 }: {
   char: string;
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  progress: MotionValue<number>;
   rangeStart: number;
   rangeEnd: number;
 }) {
