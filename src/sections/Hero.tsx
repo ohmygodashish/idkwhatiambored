@@ -23,16 +23,16 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
 
         <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
-          <div className="grid grid-cols-12 gap-4 items-end">
-            <div className="col-span-12 lg:col-span-8">
+          <div className="relative">
+            <div className="overflow-hidden text-[26vw] sm:text-[24vw] md:text-[22vw] lg:h-[0.79em] lg:text-[20vw] xl:h-[0.79em] xl:text-[19vw] 2xl:h-[0.79em] 2xl:text-[20vw]">
               <WordsPullUp
                 text="Ashish"
                 // showAsterisk
-                className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em] relative"
+                className="font-medium leading-[0.85] tracking-[-0.07em] relative"
               />
             </div>
 
-            <div className="col-span-12 lg:col-span-4 space-y-4 sm:space-y-6">
+            <div className="lg:absolute lg:bottom-[0.4vw] lg:right-0 lg:w-1/3 flex flex-col mt-4 lg:mt-0">
               <motion.p
                 className="text-primary/70 text-xs sm:text-base text-pretty"
                 style={{ lineHeight: 1.2 }}
@@ -44,13 +44,13 @@ export default function Hero() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                I build elegant, performant software — clean architecture,
+                I build elegant, performant software with clean architecture,
                 thoughtful UX, and code that scales. Passionate about turning
                 complex problems into simple, beautiful solutions.
               </motion.p>
 
               <motion.button
-                className="group flex items-center gap-2 bg-primary rounded-full text-black font-medium text-sm sm:text-base hover:gap-3 transition-[gap,transform] duration-300"
+                className="group flex items-center gap-2 bg-primary rounded-full text-black font-medium text-sm sm:text-base hover:gap-3 transition-[gap,transform] duration-300 w-fit mt-4 sm:mt-6"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 whileTap={{ scale: 0.96 }}
